@@ -1,0 +1,6 @@
+- name: "Install zoxide"
+  hosts: "localhost"
+  tasks:
+    - name: Install zoxide
+      ansible.builtin.shell: >
+        curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
