@@ -2,3 +2,4 @@
 - import_playbook: playbooks/zsh.yml
 - import_playbook: playbooks/zoxoide.yml
 - import_playbook: playbooks/nvm.yml
+- import_playbook: playbooks/neovim.yml
