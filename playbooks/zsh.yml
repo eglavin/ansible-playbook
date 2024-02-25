@@ -14,12 +14,17 @@
         shell: "/usr/bin/zsh"
       become: true
 
-    - name: Download Oh My Zsh installation script
+    - name: Download oh-my-zsh installation script
       get_url:
         url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
         dest: /tmp/install_ohmyzsh.sh
 
-    - name: Run Oh My Zsh installation script
+    - name: Run oh-my-zsh installation script
       command: sh /tmp/install_ohmyzsh.sh --unattended
       register: ohmyzsh_result
       failed_when: "'FAILED' in ohmyzsh_result.stderr"
+
+    - name: Download autosuggestions oh-my-zsh plugin
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-autosuggestions
+        dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
