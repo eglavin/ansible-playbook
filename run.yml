@@ -1,0 +1,2 @@
+- import_playbook: playbooks/apt.yml
+- import_playbook: playbooks/zsh.yml

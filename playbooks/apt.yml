@@ -1,7 +1,8 @@
-- hosts: "*"
+- name: "Update apt"
+  hosts: "localhost"
   become: yes
   tasks:
-    - name: apt
+    - name: Update apt
       apt:
         update_cache: yes
         upgrade: "yes"
