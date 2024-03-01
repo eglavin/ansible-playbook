@@ -3,3 +3,4 @@
 - import_playbook: playbooks/zoxoide.yml
 - import_playbook: playbooks/nvm.yml
 - import_playbook: playbooks/neovim.yml
+- import_playbook: playbooks/go.yml

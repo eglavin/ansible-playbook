@@ -20,3 +20,8 @@
     - name: Install pnpm tab completion
       ansible.builtin.shell: >
         pnpm install-completion zsh
+
+    - name: Install tldr
+      ansible.builtin.shell: >
+        npm install -g tldr
+

@@ -3,6 +3,7 @@
 Running locally
 
 ```sh
+ansible-galaxy install -r requirements.yml
 ansible-playbook ./run.yml --user $(whoami) --ask-pass --ask-become-pass
 ```
 
