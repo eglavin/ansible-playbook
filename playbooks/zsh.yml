@@ -28,3 +28,9 @@
       ansible.builtin.git:
         repo: https://github.com/zsh-users/zsh-autosuggestions
         dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+
+    - name: Download autocomplete oh-my-zsh plugin
+      ansible.builtin.git:
+        repo: https://github.com/marlonrichert/zsh-autocomplete
+        dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autocomplete"
+
