@@ -17,8 +17,3 @@ else
 	apt-add-repository -y --update ppa:ansible/ansible
 	apt install ansible -y
 fi
-
-# Use ansible-galaxy to install required roles
-echo "Installing Ansible roles"
-
-ansible-galaxy install -r requirements.yml

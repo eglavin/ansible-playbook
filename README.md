@@ -7,5 +7,6 @@ The `prepare-ubuntu.sh` script in this folder can do this for you.
 Running locally
 
 ```sh
+ansible-galaxy install -r requirements.yml
 ansible-playbook ./run-ubuntu.yml --user $(whoami) --ask-pass --ask-become-pass
 ```
