@@ -1,6 +1,6 @@
 - name: "Update apt"
   hosts: "localhost"
-  become: yes
+  become: true
   tasks:
     - name: Update apt
       apt:

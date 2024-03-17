@@ -1,12 +1,12 @@
 - name: "Install neovim"
   hosts: "localhost"
-  become: yes
+  become: true
   tasks:
     - name: Download neovim
       ansible.builtin.get_url:
         url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
         dest: /tmp/nvim-linux64.tar.gz
-        mode: '0440'
+        mode: "0440"
 
     - name: Remove opt nvim folder
       ansible.builtin.file:

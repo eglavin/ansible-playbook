@@ -33,4 +33,3 @@
       ansible.builtin.git:
         repo: https://github.com/marlonrichert/zsh-autocomplete
         dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autocomplete"
-

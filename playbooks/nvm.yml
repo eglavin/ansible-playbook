@@ -21,7 +21,9 @@
       ansible.builtin.shell: >
         pnpm install-completion zsh
 
-    - name: Install tldr
+    - name: Install global npm packages
       ansible.builtin.shell: >
-        npm install -g tldr
-
+        npm install -g "{{item}}"
+      loop:
+        - tldr
+        - knip
