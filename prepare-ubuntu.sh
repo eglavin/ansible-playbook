@@ -9,7 +9,7 @@ fi
 apt update
 apt upgrade -y
 
-if [ -x ansible ]; then
+if [ -x "$(command -v ansible)" ]; then
 	echo "Ansible is already installed"
 else
 	echo "Installing Ansible"
