@@ -1,0 +1,17 @@
+- name: "Run common"
+  ansible.builtin.import_playbook: roles/common.yml
+
+- name: "Run zsh"
+  ansible.builtin.import_playbook: roles/zsh.yml
+
+- name: "Run node"
+  ansible.builtin.import_playbook: roles/node.yml
+
+- name: "Run neovim"
+  ansible.builtin.import_playbook: roles/neovim.yml
+
+- name: "Install golang"
+  hosts: localhost
+  roles:
+    - role: gantsign.golang
+      golang_gopath: "$HOME/workspace-go"

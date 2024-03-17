@@ -1,0 +1,30 @@
+- name: Setup zsh
+  hosts: "localhost"
+  tasks:
+    - name: Ensure zsh is the default shell
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        shell: "/usr/bin/zsh"
+      become: true
+
+    - name: Download oh-my-zsh installation script
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+        dest: /tmp/install_ohmyzsh.sh
+        mode: "644"
+
+    - name: Run oh-my-zsh installation script
+      ansible.builtin.shell:
+        cmd: |
+          sh /tmp/install_ohmyzsh.sh --unattended --keep-zshrc
+        executable: /bin/zsh
+        creates: "{{ ansible_env.HOME }}/.oh-my-zsh"
+
+    - name: Download oh-my-zsh plugins # noqa: latest
+      ansible.builtin.git:
+        repo: "{{ item.repo }}"
+        dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/{{ item.dest }}"
+        depth: 1
+      loop:
+        - { repo: "https://github.com/zsh-users/zsh-autosuggestions", dest: "plugins/zsh-autosuggestions" }
+        - { repo: "https://github.com/marlonrichert/zsh-autocomplete", dest: "plugins/zsh-autocomplete" }

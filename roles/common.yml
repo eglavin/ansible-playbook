@@ -1,0 +1,34 @@
+- name: Run common tasks
+  hosts: "localhost"
+  tasks:
+    - name: Refresh apt
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: true
+      become: true
+      when: ansible_facts["distribution"] == "Ubuntu"
+
+    - name: Install packages
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - git
+        - python3-pip
+        - bat
+        - btop
+        - nmap
+        - fzf
+        - stow
+        - zsh
+      become: true
+      when: ansible_facts["distribution"] == "Ubuntu"
+
+    - name: Install zoxide
+      ansible.builtin.shell:
+        cmd: |
+          set -o pipefail
+          curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+        executable: /bin/zsh
+        creates: /home/{{ ansible_user_id }}/.local/bin/zoxide
+      when: ansible_facts["distribution"] == "Ubuntu"

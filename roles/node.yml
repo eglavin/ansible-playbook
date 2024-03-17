@@ -1,0 +1,38 @@
+- name: Install nvm and node lts
+  hosts: "localhost"
+  tasks:
+    - name: Install nvm
+      ansible.builtin.shell:
+        cmd: |
+          set -o pipefail
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+          source {{ ansible_env.HOME }}/.nvm/nvm.sh
+          nvm install --lts
+        executable: /bin/zsh
+        creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+
+    - name: Install pnpm
+      ansible.builtin.shell:
+        cmd: |
+          npm install -g pnpm
+        executable: /bin/zsh
+      register: pnpm_installed
+      changed_when: pnpm_installed is search("added 1 package in")
+
+    - name: Install pnpm tab completion
+      ansible.builtin.shell:
+        cmd: |
+          pnpm install-completion zsh
+        executable: /bin/zsh
+      register: pnpm_completion_installed
+      changed_when: pnpm_completion_installed is search("Make sure to reload your")
+
+    - name: Install global npm packages
+      ansible.builtin.shell:
+        cmd: |
+          npm install -g "{{ item }}"
+        executable: /bin/zsh
+      loop:
+        - tldr
+        - knip
+      changed_when: false
