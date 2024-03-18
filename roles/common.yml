@@ -8,18 +8,18 @@
       become: true
       when: ansible_facts["os_family"] == "Debian"
 
-    - name: Install packages
+    - name: Install apt packages
       ansible.builtin.apt:
         name: "{{ item }}"
         state: present
       with_items:
         - curl
         - git
-        - python3-pip
         - bat
         - btop
-        - nmap
         - fzf
+        - nmap
+        - python3-pip
         - stow
         - zsh
       become: true
@@ -33,3 +33,50 @@
         executable: /bin/zsh
         creates: /home/{{ ansible_user_id }}/.local/bin/zoxide
       when: ansible_facts["os_family"] == "Debian"
+
+    - name: Download neovim
+      ansible.builtin.get_url:
+        url: https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+        dest: /tmp/nvim-linux64.tar.gz
+        mode: "0440"
+      become: true
+      when: ansible_facts["os_family"] == "Debian"
+
+    - name: Remove opt nvim folder
+      ansible.builtin.file:
+        path: /opt/nvim
+        state: absent
+      become: true
+      when: ansible_facts["os_family"] == "Debian"
+
+    - name: Unarchive neovim
+      ansible.builtin.unarchive:
+        src: /tmp/nvim-linux64.tar.gz
+        dest: /opt
+        remote_src: true
+      become: true
+      when: ansible_facts["os_family"] == "Debian"
+
+    - name: Refresh Homebrew
+      community.general.homebrew:
+        update_homebrew: true
+        upgrade_all: true
+      when: ansible_facts["os_family"] == 'Darwin'
+
+    - name: Install Homebrew packages
+      community.general.homebrew:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - curl
+        - git
+        - bat
+        - btop
+        - ffmpeg
+        - fzf
+        - go
+        - neovim
+        - nmap
+        - stow
+        - zoxide
+      when: ansible_facts["os_family"] == 'Darwin'

@@ -7,11 +7,9 @@
 - name: "Run node"
   ansible.builtin.import_playbook: node.yml
 
-- name: "Run neovim"
-  ansible.builtin.import_playbook: neovim.yml
-
 - name: "Install golang"
   hosts: localhost
   roles:
     - role: gantsign.golang
       golang_gopath: "$HOME/workspace-go"
+      when: ansible_facts["os_family"] == "Debian"

@@ -1,13 +1,14 @@
 - name: Install nvm and node lts
   hosts: "localhost"
   tasks:
-    - name: Install nvm
+    - name: Install nvm and lts node
       ansible.builtin.shell:
         cmd: |
           set -o pipefail
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
           source {{ ansible_env.HOME }}/.nvm/nvm.sh
           nvm install --lts
+          corepack enable
         executable: /bin/zsh
         creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
 
@@ -15,7 +16,10 @@
       ansible.builtin.shell:
         cmd: |
           source {{ ansible_env.HOME }}/.nvm/nvm.sh
-          npm install -g pnpm
+          if ! command -v pnpm &> /dev/null
+          then
+            npm install -g pnpm
+          fi
         executable: /bin/zsh
       register: pnpm_installed
       changed_when: pnpm_installed is search("added 1 package in")
