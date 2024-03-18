@@ -1,14 +1,14 @@
 - name: "Run common"
-  ansible.builtin.import_playbook: roles/common.yml
+  ansible.builtin.import_playbook: common.yml
 
 - name: "Run zsh"
-  ansible.builtin.import_playbook: roles/zsh.yml
+  ansible.builtin.import_playbook: zsh.yml
 
 - name: "Run node"
-  ansible.builtin.import_playbook: roles/node.yml
+  ansible.builtin.import_playbook: node.yml
 
 - name: "Run neovim"
-  ansible.builtin.import_playbook: roles/neovim.yml
+  ansible.builtin.import_playbook: neovim.yml
 
 - name: "Install golang"
   hosts: localhost
