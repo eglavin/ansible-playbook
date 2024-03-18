@@ -1,8 +1,6 @@
 #!/bin/bash
 
-os_family="$(uname -s)"
-
-if [ $os_family = "Debian" ]; then
+if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
 	ansible-galaxy install -r requirements.debian.yml
 fi
 
