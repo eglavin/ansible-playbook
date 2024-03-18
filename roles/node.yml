@@ -14,6 +14,7 @@
     - name: Install pnpm
       ansible.builtin.shell:
         cmd: |
+          source {{ ansible_env.HOME }}/.nvm/nvm.sh
           npm install -g pnpm
         executable: /bin/zsh
       register: pnpm_installed
@@ -22,6 +23,7 @@
     - name: Install pnpm tab completion
       ansible.builtin.shell:
         cmd: |
+          source {{ ansible_env.HOME }}/.nvm/nvm.sh
           pnpm install-completion zsh
         executable: /bin/zsh
       register: pnpm_completion_installed
@@ -30,6 +32,7 @@
     - name: Install global npm packages
       ansible.builtin.shell:
         cmd: |
+          source {{ ansible_env.HOME }}/.nvm/nvm.sh
           npm install -g "{{ item }}"
         executable: /bin/zsh
       loop:
