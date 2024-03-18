@@ -6,7 +6,7 @@
         update_cache: true
         upgrade: true
       become: true
-      when: ansible_facts["distribution"] == "Ubuntu"
+      when: ansible_facts["os_family"] == "Debian"
 
     - name: Install packages
       ansible.builtin.apt:
@@ -22,7 +22,7 @@
         - stow
         - zsh
       become: true
-      when: ansible_facts["distribution"] == "Ubuntu"
+      when: ansible_facts["os_family"] == "Debian"
 
     - name: Install zoxide
       ansible.builtin.shell:
@@ -31,4 +31,4 @@
           curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
         executable: /bin/zsh
         creates: /home/{{ ansible_user_id }}/.local/bin/zoxide
-      when: ansible_facts["distribution"] == "Ubuntu"
+      when: ansible_facts["os_family"] == "Debian"
