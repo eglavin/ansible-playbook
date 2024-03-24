@@ -22,6 +22,16 @@
         - python3-pip
         - stow
         - zsh
+        - jq
+      become: true
+      when: ansible_facts["os_family"] == "Debian"
+
+    - name: Install snap packages
+      ansible.builtin.snap:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - yq
       become: true
       when: ansible_facts["os_family"] == "Debian"
 
@@ -79,4 +89,6 @@
         - nmap
         - stow
         - zoxide
+        - jq
+        - yq
       when: ansible_facts["os_family"] == 'Darwin'
