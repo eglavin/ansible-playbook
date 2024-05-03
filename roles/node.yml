@@ -32,6 +32,7 @@
         executable: /bin/zsh
       register: pnpm_completion_installed
       changed_when: pnpm_completion_installed is search("Make sure to reload your")
+      ignore_errors: true
 
     - name: Install global npm packages
       ansible.builtin.shell:
