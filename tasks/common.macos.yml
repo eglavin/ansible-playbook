@@ -29,6 +29,7 @@
   ansible.builtin.shell:
     cmd: |
       set -o pipefail
+      eval "$(/opt/homebrew/bin/fnm env)"
       /opt/homebrew/bin/fnm use --install-if-missing 20
       /opt/homebrew/bin/fnm default 20
     executable: /bin/bash
