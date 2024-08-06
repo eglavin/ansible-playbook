@@ -1,0 +1,93 @@
+---
+- name: Refresh apt
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: true
+  become: true
+
+- name: Install apt packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - curl
+    - unzip
+    - git
+    - stow
+    - nmap
+    - bat
+    - htop
+    - btop
+    - jq
+    - zsh
+  become: true
+
+- name: Set zsh is the default shell
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    shell: "/usr/bin/zsh"
+  become: true
+
+- name: Install zoxide
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+    executable: /bin/bash
+    creates: /home/{{ ansible_user_id }}/.local/bin/zoxide
+
+- name: Install fnm
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      curl -fsSL https://fnm.vercel.app/install | bash
+    executable: /bin/bash
+    creates: /home/{{ ansible_user_id }}/.local/share/fnm/fnm
+
+- name: Setup Node.js using fnm
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      /home/{{ ansible_user_id }}/.local/share/fnm/fnm install --lts --corepack-enabled
+    executable: /bin/bash
+  changed_when: false
+
+- name: Install global npm packages
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      eval "$(/home/{{ ansible_user_id }}/.local/share/fnm/fnm env)"
+      npm install -g {{ item }}
+    executable: /bin/bash
+  loop:
+    - tldr
+    - knip
+  changed_when: false
+
+- name: Install bun
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      curl -fsSL https://bun.sh/install | bash
+    executable: /bin/bash
+    creates: /home/{{ ansible_user_id }}/.bun/bin/bun
+
+- name: Install linuxbrew
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+    executable: /bin/bash
+    creates: /home/linuxbrew/.linuxbrew/bin/brew
+
+- name: Install linuxbrew packages
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      /home/linuxbrew/.linuxbrew/bin/brew install {{ item }}
+    executable: /bin/bash
+  with_items:
+    - neovim
+    - fzf
+    - yq
+  changed_when: false

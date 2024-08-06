@@ -1,0 +1,46 @@
+---
+- name: Refresh homebrew
+  community.general.homebrew:
+    update_homebrew: true
+    upgrade_all: true
+
+- name: Install homebrew packages
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - curl
+    - unzip
+    - git
+    - stow
+    - nmap
+    - bat
+    - htop
+    - btop
+    - jq
+    - yq
+    - fzf
+    - zoxide
+    - neovim
+    - fnm
+    - oven-sh/bun/bun
+
+- name: Setup Node.js using fnm
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      /opt/homebrew/bin/fnm install --lts --corepack-enabled
+    executable: /bin/bash
+  changed_when: false
+
+- name: Install global npm packages
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      eval "$(/opt/homebrew/bin/fnm env)"
+      npm install -g {{ item }}
+    executable: /bin/bash
+  loop:
+    - tldr
+    - knip
+  changed_when: false

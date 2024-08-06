@@ -1,10 +1,18 @@
 #!/bin/bash
 
-if [ "$(grep -Ei 'debian|buntu|mint' /etc/*release)" ]; then
-	ansible-galaxy install -r requirements.debian.yml
-fi
+verbose="false"
+
+while getopts v flag
+do
+	case "${flag}" in
+		v) verbose="true" ;;
+	esac
+done
 
 ansible-galaxy collection install community.general
 
-ansible-playbook ./roles/main.yml --user $(whoami) --ask-pass --ask-become-pass
-
+if [ $verbose = "true" ]; then
+	ansible-playbook ./main.yml --user $(whoami) --ask-pass --ask-become-pass -vvv
+else
+	ansible-playbook ./main.yml --user $(whoami) --ask-pass --ask-become-pass
+fi

@@ -1,0 +1,12 @@
+---
+- name: Setup system
+  hosts: localhost
+
+  tasks:
+    - name: Run common (Ubuntu)
+      ansible.builtin.include_tasks: tasks/common.ubuntu.yml
+      when: ansible_facts["os_family"] == "Debian"
+
+    - name: Run common (Mac OSX)
+      ansible.builtin.include_tasks: tasks/common.macos.yml
+      when: ansible_facts["os_family"] == 'Darwin'
