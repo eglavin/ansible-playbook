@@ -29,7 +29,8 @@
   ansible.builtin.shell:
     cmd: |
       set -o pipefail
-      /opt/homebrew/bin/fnm install --lts --corepack-enabled
+      /opt/homebrew/bin/fnm use --install-if-missing 20
+      /opt/homebrew/bin/fnm default 20
     executable: /bin/bash
   changed_when: false
 
