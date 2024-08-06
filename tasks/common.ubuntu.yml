@@ -80,6 +80,15 @@
     executable: /bin/bash
     creates: /home/linuxbrew/.linuxbrew/bin/brew
 
+- name: Update linuxbrew
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      /home/linuxbrew/.linuxbrew/bin/brew update
+      /home/linuxbrew/.linuxbrew/bin/brew upgrade
+    executable: /bin/bash
+  changed_when: false
+
 - name: Install linuxbrew packages
   ansible.builtin.shell:
     cmd: |
