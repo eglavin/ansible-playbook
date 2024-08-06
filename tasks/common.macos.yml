@@ -23,7 +23,7 @@
     - zoxide
     - neovim
     - fnm
-    - oven-sh/bun/bun
+    - bun
 
 - name: Setup Node.js using fnm
   ansible.builtin.shell:
