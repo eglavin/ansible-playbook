@@ -24,6 +24,10 @@
     - neovim
     - fnm
     - bun
+    - scc
+    - ripgrep
+    - gping
+    - lazygit
 
 - name: Setup Node.js using fnm
   ansible.builtin.shell:
@@ -45,4 +49,5 @@
   loop:
     - tldr
     - knip
+    - cloc
   changed_when: false

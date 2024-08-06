@@ -11,6 +11,9 @@
     state: present
   with_items:
     - curl
+    - build-essential
+    - procps
+    - file
     - unzip
     - git
     - stow
@@ -64,6 +67,7 @@
   loop:
     - tldr
     - knip
+    - cloc
   changed_when: false
 
 - name: Install bun
@@ -101,4 +105,8 @@
     - neovim
     - fzf
     - yq
+    - scc
+    - ripgrep
+    - gping
+    - lazygit
   changed_when: false
