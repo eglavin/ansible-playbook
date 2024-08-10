@@ -17,6 +17,7 @@
     - bat
     - htop
     - btop
+    - eza
     - jq
     - yq
     - fzf

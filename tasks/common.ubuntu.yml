@@ -104,6 +104,7 @@
   with_items:
     - neovim
     - fzf
+    - eza
     - yq
     - scc
     - ripgrep
