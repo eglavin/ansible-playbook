@@ -110,4 +110,5 @@
     - ripgrep
     - gping
     - lazygit
+    - gdu
   changed_when: false

@@ -29,6 +29,7 @@
     - ripgrep
     - gping
     - lazygit
+    - gdu
 
 - name: Setup Node.js using fnm
   ansible.builtin.shell:
