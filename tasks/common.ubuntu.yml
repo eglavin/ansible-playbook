@@ -43,7 +43,7 @@
   ansible.builtin.shell:
     cmd: |
       set -o pipefail
-      curl -fsSL https://fnm.vercel.app/install | bash
+      curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
     executable: /bin/bash
     creates: /home/{{ ansible_user_id }}/.local/share/fnm/fnm
 
@@ -52,7 +52,7 @@
     cmd: |
       set -o pipefail
       eval "$(/home/{{ ansible_user_id }}/.local/share/fnm/fnm env)"
-      /home/{{ ansible_user_id }}/.local/share/fnm/fnm use --install-if-missing 20
+      /home/{{ ansible_user_id }}/.local/share/fnm/fnm install 20 --corepack-enabled
       /home/{{ ansible_user_id }}/.local/share/fnm/fnm default 20
     executable: /bin/bash
   changed_when: false
