@@ -111,4 +111,5 @@
     - gping
     - lazygit
     - gdu
+    - delta
   changed_when: false
