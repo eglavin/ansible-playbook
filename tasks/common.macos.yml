@@ -9,48 +9,39 @@
     name: "{{ item }}"
     state: present
   loop:
-    - curl
-    - unzip
-    - git
-    - stow
-    - nmap
     - bat
-    - htop
     - btop
-    - eza
-    - jq
-    - yq
-    - fzf
-    - zoxide
-    - neovim
-    - fnm
     - bun
-    - scc
-    - ripgrep
-    - gping
-    - lazygit
-    - gdu
+    - curl
     - delta
+    - eza
+    - file
+    - fnm
+    - fzf
+    - gdu
+    - git
+    - gping
+    - htop
+    - jq
+    - lazygit
+    - neovim
+    - nmap
+    - ripgrep
+    - scc
+    - stow
+    - tree
+    - unzip
+    - yq
+    - wget
+    - zip
+    - zoxide
 
 - name: Setup Node.js using fnm
   ansible.builtin.shell:
     cmd: |
       set -o pipefail
       eval "$(/opt/homebrew/bin/fnm env)"
-      /opt/homebrew/bin/fnm install 20 --corepack-enabled
-      /opt/homebrew/bin/fnm default 20
+      /opt/homebrew/bin/fnm install 24 --corepack-enabled
+      /opt/homebrew/bin/fnm default 24
     executable: /bin/bash
-  changed_when: false
-
-- name: Install global npm packages
-  ansible.builtin.shell:
-    cmd: |
-      set -o pipefail
-      eval "$(/opt/homebrew/bin/fnm env)"
-      npm install -g {{ item }}
-    executable: /bin/bash
-  loop:
-    - tldr
-    - knip
-    - cloc
   changed_when: false
